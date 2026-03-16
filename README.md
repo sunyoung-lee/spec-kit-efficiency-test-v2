@@ -1,48 +1,73 @@
-# Spec-kit Efficiency Test
+# React + TypeScript + Vite
 
-> AI 코드 생성에서 **자연어 지시** vs **구조화된 [Spec-kit](https://github.com/github/spec-kit) 명세**의 효율성 차이를 정량 측정하는 실험
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 실험 결과 요약
+Currently, two official plugins are available:
 
-| 지표 | Case A (자연어) | Case B (Spec-kit) |
-|---|---|---|
-| AI 추측 건수 | **24건** | **0건** |
-| `any` 타입 사용 | 5건 | 0건 |
-| ARIA 접근성 속성 | 0건 | 13건 |
-| 에지 케이스 커버 | 1/8 (12.5%) | 8/8 (100%) |
-| 종합 점수 | 3.5/10 | 9.8/10 |
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-> 상세 분석은 [REPORT.md](./REPORT.md) 참조
+## React Compiler
 
-## 실험 대상
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-**Agentic Dynamic Showcase** — 스크롤 반응형 필터 + 데이터 로딩 상태(Skeleton) + 에러 핸들링이 결합된 지능형 프로젝트 갤러리
+## Expanding the ESLint configuration
 
-## 저장소 구조
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-experiments/
-├── case-a-natural-lang/   # "부드러운 애니메이션 넣어줘" 식의 모호한 지시
-│   ├── spec.md            # 자연어 명세
-│   ├── guess.log          # AI가 추측한 24건의 기록
-│   └── src/               # AI 생성 코드 (9파일, 481줄)
-└── case-b-spec-kit/       # "spring, stiffness: 300, damping: 20" 식의 정밀 명세
-    ├── spec.md            # Spec-kit 구조화 명세
-    └── src/               # AI 생성 코드 (18파일, 903줄)
-```
 
-## 실험 환경
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-- **AI**: Claude Opus 4.6 (Claude Code)
-- **스택**: React 18 + TypeScript + Vite 5 + Framer Motion + TanStack Query + Tailwind CSS
-- **날짜**: 2026-03-16
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## 로컬 실행
-
-```bash
-# Case A
-cd experiments/case-a-natural-lang && npm install && npm run dev
-
-# Case B
-cd experiments/case-b-spec-kit && npm install && npm run dev
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
