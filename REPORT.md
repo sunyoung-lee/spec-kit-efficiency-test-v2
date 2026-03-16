@@ -90,3 +90,22 @@ Case B가 37% 더 많은 코드를 생성했지만, 증가분은 전부 **접근
 
 > **Spec-kit 방식은 문서 작성에 +41줄을 투자하여, 수정 루프 0회 + 할루시네이션 0건을 달성했다.**
 > 선행 투자(문서 정밀화)가 후행 비용(수정/디버깅)을 구조적으로 제거하는 것을 실증한다.
+
+---
+
+## 후속 조치: 글로벌 설정 통합
+
+실험 결과의 유효성이 검증되어, spec-kit 방법론을 **글로벌 AI-SDLC 설정에 12번째 Background Skill로 통합**했다.
+
+| 항목 | 내용 |
+|:---|:---|
+| **적용일** | 2026-03-17 |
+| **스킬 경로** | `~/github/global-configs/skills/spec-kit/SKILL.md` |
+| **자동 적용 단계** | `/plan` (spec.md 생성 시), `/dev` (구현 시) |
+| **글로벌 CLAUDE.md** | `templates/CLAUDE.md` v1.4 — Background Skills 테이블에 등록 |
+| **커밋** | `global-configs@37a7d98` |
+
+### 적용 효과
+- `/plan` 단계에서 spec.md 생성 시 **Constitution + Logic Spec + UI Spec 패턴이 자동 강제**됨
+- `/dev` 단계에서 구현 시 **spec.md 제약 조건 엄격 준수 + 준수 검증 체크리스트** 자동 생성
+- 모든 향후 프로젝트에서 AI 할루시네이션 원천 차단 메커니즘 활성화
