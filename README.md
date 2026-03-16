@@ -32,6 +32,10 @@
 
 [agentic-portfolio](https://github.com/sunyoung-lee/agentic-portfolio) 프로젝트 데이터 기반
 
+## 참고
+
+- [Spec-kit](https://github.com/github/spec-kit) — 이 실험의 Case B에서 사용한 제약 기반 명세 방법론
+
 ## Tech Stack
 
 Vite + React 19 + TypeScript + Tailwind CSS 4 + Framer Motion
