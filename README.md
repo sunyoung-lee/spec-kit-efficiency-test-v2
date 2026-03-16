@@ -1,73 +1,37 @@
-# React + TypeScript + Vite
+# Spec-kit Efficiency Test v2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+자연어 지시 vs Spec-kit 제약 조건 기반 AI 코딩의 효율성을 비교하는 실험 레포.
 
-Currently, two official plugins are available:
+## 실험 과제
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**"지능형 프로젝트 필터링 시스템"** — 카테고리 필터링 + Framer Motion 애니메이션 + Empty State 처리
 
-## React Compiler
+## 브랜치 구조
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| 브랜치 | 설명 |
+|:---|:---|
+| `main` | 공통 기반 (Vite + React + TS + Tailwind) + REPORT.md |
+| `experiment/natural-lang` | **Case A** — 모호한 자연어 지시로 구현 |
+| `experiment/spec-kit` | **Case B** — Constitution + Logic Spec 기반 정밀 구현 |
 
-## Expanding the ESLint configuration
+## 핵심 결과
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| 항목 | Case A (자연어) | Case B (Spec-kit) |
+|:---|:---:|:---:|
+| AI 추측 횟수 | 11건 | 0건 |
+| 접근성 (ARIA) | 미구현 | 완비 |
+| CLS 방지 | 미구현 | 구현 |
+| Empty State | 이모지 + 텍스트 | SVG + 복귀 버튼 |
+| 1차 성공률 | ~60% | ~100% |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+> Spec-kit 문서 +41줄 투자로 수정 루프 0회 + 할루시네이션 0건 달성.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+상세 분석은 [REPORT.md](./REPORT.md) 참조.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 데이터 출처
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+[agentic-portfolio](https://github.com/sunyoung-lee/agentic-portfolio) 프로젝트 데이터 기반
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Tech Stack
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Vite + React 19 + TypeScript + Tailwind CSS 4 + Framer Motion
