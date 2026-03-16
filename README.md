@@ -1,6 +1,6 @@
 # Spec-kit Efficiency Test
 
-> AI 코드 생성에서 **자연어 지시** vs **구조화된 Spec-kit 명세**의 효율성 차이를 정량 측정하는 실험
+> AI 코드 생성에서 **자연어 지시** vs **구조화된 [Spec-kit](https://github.com/github/spec-kit) 명세**의 효율성 차이를 정량 측정하는 실험
 
 ## 실험 결과 요약
 
