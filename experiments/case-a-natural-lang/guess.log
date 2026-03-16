@@ -1,0 +1,98 @@
+# Case A — Guess Log
+# 자연어 spec에서 모호한 부분을 AI가 추측한 모든 기록
+
+[GUESS-001] Category: 기술 스택
+Decision: 상태 관리에 useEffect + useState 패턴 사용 (TanStack Query 미사용)
+Reason: Spec에 "상태 관리도 적절하게 처리해줘"라고만 되어 있음. React 기본 훅이 "적절한" 선택이라 판단
+
+[GUESS-002] Category: 애니메이션
+Decision: CSS transition (ease 0.3s) 사용, Framer Motion spring 미사용
+Reason: "부드러운 애니메이션"이라고만 명시. spring vs ease 중 어떤 방식인지, duration은 몇 초인지 전혀 불명확. CSS transition이 가장 단순한 선택
+
+[GUESS-003] Category: 애니메이션 수치
+Decision: 호버 시 scale(1.05), transition 0.3s ease
+Reason: "부드러운"의 정량적 수치 없음. 1.05는 자주 쓰이는 값이라 추측
+
+[GUESS-004] Category: 로딩 UI
+Decision: CSS 스피너(회전 원형) 사용
+Reason: "스켈레톤 UI 같은 거 넣으면 좋을 것 같아"는 선택사항으로 읽힘 ("같은 거", "좋을 것 같아"). 스피너가 더 빠르게 구현 가능하므로 스피너 선택
+
+[GUESS-005] Category: 그리드 레이아웃
+Decision: grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)), gap 16px
+Reason: "보기 좋게 그리드로 배치"에서 열 수, 카드 최소 폭, 간격 전혀 명시 없음. 300px과 16px은 일반적 값으로 추측
+
+[GUESS-006] Category: 반응형 브레이크포인트
+Decision: 768px 단일 브레이크포인트 (2단계: 모바일/데스크톱)
+Reason: "모바일에서도 잘 보이게"만 명시. 태블릿 별도 처리 여부, 구체적 브레이크포인트 불명확. 768px 하나로 단순화
+
+[GUESS-007] Category: 데이터 구조
+Decision: { id, title, description, image, category, tags } 형태, 타입 정의 없이 인라인 사용
+Reason: 프로젝트 카드에 어떤 필드가 필요한지 전혀 명시 없음. 일반적인 포트폴리오 카드 구조를 추측. TypeScript interface 정의 여부도 불명확
+
+[GUESS-008] Category: 카테고리 분류
+Decision: "Web", "Mobile", "AI", "Design" 4개 카테고리
+Reason: 카테고리가 몇 개인지, 어떤 이름인지 전혀 명시 없음. 일반적인 기술 포트폴리오 카테고리를 임의 설정
+
+[GUESS-009] Category: 목데이터 개수
+Decision: 8개 프로젝트 생성
+Reason: 프로젝트 수량 미명시. 그리드가 자연스러워 보이는 최소 수량으로 추측
+
+[GUESS-010] Category: 색상 시스템
+Decision: 필터 활성: #3b82f6 (blue-500), 카드 배경: #ffffff, 텍스트: #1f2937
+Reason: "모던하고 깔끔한 디자인"에서 색상 팔레트 전혀 불명확. 자주 쓰이는 값을 하드코딩
+
+[GUESS-011] Category: 필터바 스타일
+Decision: position: sticky, top: 0, 배경 흰색(불투명), border-bottom 구분선
+Reason: "상단에 고정"만 명시. 반투명/블러 처리 여부, 그림자 여부, 높이 등 불명확
+
+[GUESS-012] Category: 상세 모달
+Decision: 단순 오버레이 + 중앙 박스, 닫기 버튼만 (X 클릭)
+Reason: "상세 정보가 나오게 해줘"에서 모달 vs 페이지 이동 불명확. 모달 선택. 닫기 방식(ESC, 오버레이 클릭, X버튼) 중 X만 구현
+
+[GUESS-013] Category: 접근성
+Decision: 최소한의 alt 텍스트만 추가, ARIA role/keyboard nav 미구현
+Reason: "접근성도 고려해줘"는 매우 모호. 어느 수준(WCAG AA? AAA?)인지 불명확. 최소한으로 처리
+
+[GUESS-014] Category: 에러 처리
+Decision: try-catch로 에러 메시지 표시 + 재시도 버튼, Error Boundary 미사용
+Reason: "에러가 나면 알려주고 다시 시도"에서 Error Boundary 사용 여부 불명확. 단순한 상태 기반 에러 처리 선택
+
+[GUESS-015] Category: 스크롤 감지 방식
+Decision: scroll 이벤트 + getBoundingClientRect 사용
+Reason: "스크롤 위치에 따라 하이라이트"에서 IntersectionObserver vs scroll event 선택지 불명확. scroll event가 더 직관적이라 선택 (성능은 떨어질 수 있음)
+
+[GUESS-016] Category: 폰트/타이포그래피
+Decision: system-ui 기본 폰트, 제목 20px bold, 본문 14px
+Reason: 폰트 패밀리, 크기 체계 전혀 명시 없음. 브라우저 기본값 사용
+
+[GUESS-017] Category: 카드 그림자
+Decision: box-shadow: 0 2px 8px rgba(0,0,0,0.1)
+Reason: 그림자 스타일 미명시. 일반적인 카드 그림자 값 추측
+
+[GUESS-018] Category: 카드 border-radius
+Decision: 8px
+Reason: "깔끔한 디자인"에서 둥글기 정도 불명확. 8px은 무난한 값으로 추측
+
+[GUESS-019] Category: 파일 구조
+Decision: src/components/ 에 모든 컴포넌트를 flat하게 배치
+Reason: 디렉토리 구조 전혀 명시 없음. 가장 단순한 flat 구조 선택
+
+[GUESS-020] Category: HTML 시맨틱
+Decision: 대부분 <div> 태그 사용 (div-soup)
+Reason: "접근성 고려"라 했지만 구체적 시맨틱 태그 요구 없음. div로 빠르게 구현
+
+[GUESS-021] Category: 모달 포커스 관리
+Decision: 포커스 트랩 미구현, ESC 키 닫기 미구현
+Reason: 상세 정보 "나오게 해줘"에서 포커스 관리 언급 없음
+
+[GUESS-022] Category: 이미지 최적화
+Decision: loading="lazy" 미적용, 일반 img 태그 사용
+Reason: "성능도 신경 써줘"가 이미지 최적화를 포함하는지 불명확
+
+[GUESS-023] Category: 스크롤 이동 방식
+Decision: window.scrollTo + offset 계산
+Reason: scrollIntoView vs scrollTo 선택지 불명확. scrollTo로 추측
+
+[GUESS-024] Category: 네트워크 지연 시뮬레이션
+Decision: setTimeout 1000ms로 로딩 시뮬레이션
+Reason: 데이터 로딩 시뮬레이션 시간 미명시. 1초는 적당한 시간으로 추측
