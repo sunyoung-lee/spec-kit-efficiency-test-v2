@@ -28,6 +28,15 @@
 
 상세 분석은 [REPORT.md](./REPORT.md) 참조.
 
+## 실험 요약
+
+동일한 기능("프로젝트 필터링 시스템")을 두 가지 방식으로 AI에게 지시하고 결과를 비교했다.
+
+- **Case A** — `"카테고리 버튼을 누르면 부드럽게 필터링되어야 함"` 수준의 자연어 지시. AI는 애니메이션 속도(0.3s), 전환 모드(popLayout), 색상(indigo-500) 등 **11가지 값을 임의로 결정**했고, 접근성(ARIA)과 CLS 방지는 아예 누락됨.
+- **Case B** — prd.md에 Constitution(불변 원칙 5개), spec.md에 State Machine(exit 0.2s/enter 0.3s), UI Spec(정확한 Tailwind 클래스), Edge Case(빠른 연속 클릭, 빈 결과 복귀 버튼)를 사전 정의. **AI 추측 0건**, 첫 구현에서 프로덕션 수준 달성.
+
+문서 작성에 +41줄(30줄→71줄)을 투자한 결과, 수정 요청 0회 + 할루시네이션 0건을 달성. 이 결과를 바탕으로 spec-kit 방법론을 [글로벌 AI-SDLC 설정](https://github.com/sunyoung-lee/global-configs)의 12번째 Background Skill로 통합했다.
+
 ## 데이터 출처
 
 [agentic-portfolio](https://github.com/sunyoung-lee/agentic-portfolio) 프로젝트 데이터 기반
